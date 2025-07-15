@@ -2,10 +2,10 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 -- split the screen
-vim.keymap.set("n", "<leader>g", ":split<CR>")
+vim.keymap.set("n", "<leader>b", ":split<CR>")
 vim.keymap.set("n", "<leader>v", ":vsplit<CR>")
 -- leave the file and return to the directory.
-vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>x", vim.cmd.Ex)
 -- format the current file.
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 -- moves what is selected up or down. will also indent.
@@ -14,6 +14,8 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- centers when moving up and down using ctrl-u/d.
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- test
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
 -- copy to clipboard.
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
@@ -50,6 +52,7 @@ vim.cmd("set expandtab")
 vim.cmd("set tabstop=4")
 vim.cmd("set softtabstop=4")
 vim.cmd("set shiftwidth=4")
+vim.cmd("set guicursor=n-v-c-i:block")
 
 vim.o.number = true
 vim.o.relativenumber = true
@@ -65,6 +68,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = highlight_group,
     pattern = "*",
 })
-
--- Neogit here to avoid config problems
-vim.keymap.set("n", "<leader>ng", ":Neogit<CR>", {})
