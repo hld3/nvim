@@ -43,8 +43,8 @@ return {
                     end, { desc = "Format current buffer with LSP" })
                 end
 
-                lspconfig.gopls.setup { on_attach = on_attach }
-                lspconfig.lua_ls.setup { on_attach = on_attach }
+                vim.lsp.enable("gopls")
+                vim.lsp.enable("lua_ls")
             end
         },
         {
