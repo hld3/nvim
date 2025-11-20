@@ -4,7 +4,6 @@ return {
         {
             "neovim/nvim-lspconfig",
             config = function()
-                local lspconfig = require("lspconfig")
                 local on_attach = function(_, bufnr)
                     local nmap = function(keys, func, desc)
                         if desc then
@@ -43,8 +42,13 @@ return {
                     end, { desc = "Format current buffer with LSP" })
                 end
 
-                vim.lsp.enable("gopls")
-                vim.lsp.enable("lua_ls")
+                vim.lsp.config['gopls'] = {
+                    on_attach = on_attach
+                }
+                vim.lsp.config['lua_ls'] = {
+                    on_attach = on_attach
+                }
+                vim.lsp.enable({ "gopls", "lua_ls" })
             end
         },
         {
