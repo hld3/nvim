@@ -57,8 +57,6 @@ vim.cmd("set spell")
 
 vim.o.number = true
 vim.o.relativenumber = true
-vim.o.hlsearch = false
-vim.opt.termguicolors = true
 
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
