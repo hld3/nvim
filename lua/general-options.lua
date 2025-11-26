@@ -14,6 +14,9 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 -- centers when moving up and down using ctrl-u/d.
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+-- tab options
+vim.keymap.set("n", "<leader>t", ":tabedit<CR>")
+vim.keymap.set("n", "<leader>n", ":tabnext<CR>")
 -- test
 vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
 -- copy to clipboard.
