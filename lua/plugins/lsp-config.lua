@@ -48,7 +48,10 @@ return {
                 vim.lsp.config['lua_ls'] = {
                     on_attach = on_attach
                 }
-                vim.lsp.enable({ "gopls", "lua_ls" })
+                vim.lsp.config['clangd'] = {
+                    on_attach = on_attach
+                }
+                vim.lsp.enable({ "gopls", "lua_ls", "clangd" })
             end
         },
         {
