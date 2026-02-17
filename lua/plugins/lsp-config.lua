@@ -16,7 +16,7 @@ return {
                     nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
                     nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
-                    nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+                    -- nmap("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
                     nmap("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
                     nmap("gi", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
                     nmap("<leader>td", require("telescope.builtin").lsp_type_definitions, "[T]ype [D]efinition")
@@ -42,6 +42,17 @@ return {
                     end, { desc = "Format current buffer with LSP" })
                 end
 
+                -- add a rounded border so that the box text doesn't mix with the code
+                local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+
+                function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+                    opts = otps or {}
+                    opts.border = opts.border or 'rounded'
+
+                    return orig_util_open_floating_preview(contents, syntax, opts, ...)
+                end
+
+                -- configs
                 vim.lsp.config['gopls'] = {
                     on_attach = on_attach
                 }
@@ -49,7 +60,13 @@ return {
                     on_attach = on_attach
                 }
                 vim.lsp.config['clangd'] = {
-                    on_attach = on_attach
+                    on_attach = on_attach,
+                    cmd = {
+                        "clangd",
+                        "--background-index",
+                        "--clang-tidy",
+                        "--log=verbose",
+                    }
                 }
                 vim.lsp.enable({ "gopls", "lua_ls", "clangd" })
             end
