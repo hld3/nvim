@@ -25,7 +25,8 @@ return {
                         "[W]orkspace [S]ymbols")
 
                     -- See `:help K` for why this keymap
-                    nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+                    -- nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+                    nmap("K", function() vim.lsp.buf.hover({ focusable = true, border = "rounded" }) end, "Hover Documentation")
                     -- nmap("<leader>d", vim.lsp.buf.signature_help, "Signature Documentation")
 
                     -- Lesser used LSP functionality
@@ -40,16 +41,6 @@ return {
                     vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
                         vim.lsp.buf.format()
                     end, { desc = "Format current buffer with LSP" })
-                end
-
-                -- add a rounded border so that the box text doesn't mix with the code
-                local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-
-                function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-                    opts = otps or {}
-                    opts.border = opts.border or 'rounded'
-
-                    return orig_util_open_floating_preview(contents, syntax, opts, ...)
                 end
 
                 -- configs
@@ -68,7 +59,10 @@ return {
                         "--log=verbose",
                     }
                 }
-                vim.lsp.enable({ "gopls", "lua_ls", "clangd" })
+                vim.lsp.config['cmake'] = {
+                    on_attach = on_attach
+                }
+                vim.lsp.enable({ "gopls", "lua_ls", "clangd", "cmake" })
             end
         },
         {
