@@ -26,7 +26,7 @@ return {
 
                     -- See `:help K` for why this keymap
                     -- nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-                    nmap("K", function() vim.lsp.buf.hover({ focusable = true, border = "rounded" }) end, "Hover Documentation")
+                    nmap("K", function() vim.lsp.buf.hover({ focusable = true, border = "rounded", max_width = 80 }) end, "Hover Documentation")
                     -- nmap("<leader>d", vim.lsp.buf.signature_help, "Signature Documentation")
 
                     -- Lesser used LSP functionality
@@ -54,9 +54,9 @@ return {
                     on_attach = on_attach,
                     cmd = {
                         "clangd",
+                        "--offset-encoding=utf-16",
                         "--background-index",
                         "--clang-tidy",
-                        "--log=verbose",
                     }
                 }
                 vim.lsp.config['cmake'] = {

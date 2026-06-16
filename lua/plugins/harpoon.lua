@@ -11,5 +11,6 @@ return {
         vim.keymap.set("n", "<A-m>", function() ui.nav_file(2) end)
         vim.keymap.set("n", "<A-,>", function() ui.nav_file(3) end)
         vim.keymap.set("n", "<A-.>", function() ui.nav_file(4) end)
+        vim.keymap.set("n", "<A-/>", function() ui.nav_file(5) end)
     end
 }
