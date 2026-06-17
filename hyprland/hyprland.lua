@@ -44,6 +44,7 @@ local sessionizer = "ghostty -e tmux-sessionizer"
 local weechat = "ghostty -e weechat"
 local recordA = "ghostty -e wf-recorder --audio=alsa_output.pci-0000_00_1f.3.analog-stereo.monitor -f Videos/z_temp.mp4"
 local recordB = "ghostty -e wf-recorder --audio=bluez_output.80_99_E7_90_BB_85.1.monitor -f Videos/z_temp.mp4"
+local hidebar     = "killall -SIGUSR1 waybar"
 
 -------------------
 ---- AUTOSTART ----
@@ -54,11 +55,13 @@ local recordB = "ghostty -e wf-recorder --audio=bluez_output.80_99_E7_90_BB_85.1
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
 --
--- hl.on("hyprland.start", function () 
+hl.on("hyprland.start", function () 
 --   hl.exec_cmd(terminal)
 --   hl.exec_cmd("nm-applet")
---   hl.exec_cmd("waybar & hyprpaper & firefox")
--- end)
+  -- hl.exec_cmd("waybar & hyprpaper & firefox")
+  hl.exec_cmd("waybar")
+  hl.exec_cmd("swaybg -o HDMI-A-1 -i ~/Pictures/backgrounds/dark_red_arch.png -o DP-1 -i ~/Pictures/backgrounds/samarai_red_tree_dark.jpg")
+end)
 
 
 -------------------------------
@@ -142,6 +145,10 @@ hl.config({
     animations = {
         enabled = true,
     },
+
+    cursor = {
+        inactive_timeout = 1,
+    },
 })
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
@@ -217,8 +224,8 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo   = false, -- If true disables the random hyprland logo / anime girl background. :(
+        force_default_wallpaper = 1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
+        disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
     },
 })
 
@@ -274,11 +281,12 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
 hl.bind("CTRL + SHIFT + a", hl.dsp.exec_cmd(recordA))
 hl.bind("CTRL + SHIFT + b", hl.dsp.exec_cmd(recordB))
+hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(hidebar))
 
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen("maximized", "toggle"))
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)
--- hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 -- hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + S", hl.dsp.layout("togglesplit"))    -- dwindle only
@@ -316,8 +324,8 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
+hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + minus", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
 hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
 hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
 hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
