@@ -48,7 +48,14 @@ return {
                     on_attach = on_attach
                 }
                 vim.lsp.config['lua_ls'] = {
-                    on_attach = on_attach
+                    on_attach = on_attach,
+                    settings = {
+                        Lua = {
+                            workspace = {
+                                preloadFileSize = 1024,
+                            },
+                        },
+                    },
                 }
                 vim.lsp.config['clangd'] = {
                     on_attach = on_attach,
